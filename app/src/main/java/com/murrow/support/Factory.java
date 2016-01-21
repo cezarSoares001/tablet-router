@@ -32,6 +32,11 @@ public class Factory
         return uiManager;
     }
 
+    public SoundPlayer getSoundPlayer()
+    {
+        return soundPlayer;
+    }
+
     private void createObjects()
     {
         uiManager = new UIManager();

@@ -42,10 +42,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.showIPAddr)
+        if (id == R.id.menuShowIPAddr)
         {
             uiManager.raiseToast(NetworkConstants.IP_ADDRESS);
             uiManager.setLblIPAddrVal(NetworkConstants.IP_ADDRESS);
+        }
+
+        if (id == R.id.menuMakeNoise)
+        {
+            myFactory.getSoundPlayer().playButtonPressSound();
         }
 
         return super.onOptionsItemSelected(item);
