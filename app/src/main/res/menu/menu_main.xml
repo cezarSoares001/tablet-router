@@ -10,16 +10,4 @@
         android:title="Show IP Address"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/optClearIPAddr"
-        android:orderInCategory="100"
-        android:title="Clear IP Address"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/optMakeNoise"
-        android:orderInCategory="1000"
-        android:title="Make Noise"
-        app:showAsAction="never" />
-
 </menu>
