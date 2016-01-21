@@ -42,15 +42,21 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.menuShowIPAddr)
+        if (id == R.id.optShowIPAddr)
         {
             uiManager.raiseToast(NetworkConstants.IP_ADDRESS);
             uiManager.setLblIPAddrVal(NetworkConstants.IP_ADDRESS);
         }
 
-        if (id == R.id.menuMakeNoise)
+        if (id == R.id.optMakeNoise)
         {
             myFactory.getSoundPlayer().playButtonPressSound();
+        }
+
+        if (id == R.id.optClearIPAddr)
+        {
+            uiManager.raiseToast("IP Address Cleared");
+            uiManager.setLblIPAddrVal(getString(R.string.unknown));
         }
 
         return super.onOptionsItemSelected(item);
