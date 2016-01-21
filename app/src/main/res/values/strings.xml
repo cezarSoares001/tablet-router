@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tablet Router</string>
+    <string name="lblIPAddrStr">IP Address:</string>
+    <string name="unknown">Unknown</string>
 </resources>
