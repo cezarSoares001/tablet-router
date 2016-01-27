@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.murrow.network.LL2P;
 import com.murrow.support.*;
 
 public class MainActivity extends AppCompatActivity
@@ -21,8 +22,11 @@ public class MainActivity extends AppCompatActivity
 
         myFactory = new Factory(this);
         uiManager = myFactory.getUIManager();
-
         uiManager.raiseToast("All done!");
+
+        byte[] arr = {(byte)0xAA,(byte)0xAB};
+
+        LL2P ll2p = new LL2P(arr);
     }
 
     @Override

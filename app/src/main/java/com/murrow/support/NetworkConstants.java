@@ -14,8 +14,17 @@ public class NetworkConstants {
 	public static String IP_ADDRESS;		// the IP address of this system will be stored here in dotted decimal notation
 	public static String IP_ADDRESS_PREFIX; // the prefix will be stored here
 
+    //LL2P Stuff
+    public static final String MY_LL2P_ADDR = "FACADE";
+    public static final String TYPE_LL3P = "8001";
+    public static final String TYPE_ARP = "8002";
+    public static final String TYPE_LRP = "8003";
+    public static final int LL2P_ADDR_LENGTH = 3;
+    public static final int CRC_LENGTH = 2;
+    public static final int LL2P_TYPE_LENGTH = 2;
 
-	//  SOUNDS
+
+    //  SOUNDS
 	public static final int badPacketSound = 1;
 	public static final int packetSentSound = 2;
 	public static final int buttonPressSound = 3;
