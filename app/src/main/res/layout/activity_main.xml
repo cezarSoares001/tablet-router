@@ -11,81 +11,130 @@
     tools:context="com.murrow.tabletrouter.MainActivity">
 
 
-    <RelativeLayout
-        android:layout_width="250dp"
+    <GridLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/blue">
+        android:background="@color/blue"
+        android:minWidth="300dp"
+        android:padding="2dp">
 
 
         <TextView
-            android:text="LL2P Dest Address"
+            android:text="LL2P DST"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:padding="5dp"
+            android:layout_gravity="left"
+            android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/lblLL2PdestAddrVal"
+            android:id="@+id/lblLL2PdstAddrVal"
             android:text="@string/unknown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="150dp"/>
+            android:layout_row="0"
+            android:layout_column="1"
+            android:paddingRight="10dp"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:textColor="@color/darkRed"/>
 
         <TextView
-            android:text="LL2P Src Address"
+            android:text="LL2P SRC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp" />
+            android:layout_row="0"
+            android:layout_column="2"
+            android:textStyle="bold"
+            android:layout_gravity="left"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"/>
 
         <TextView
             android:id="@+id/lblLL2PsrcAddrVal"
             android:text="@string/unknown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingLeft="150dp"/>
+            android:layout_row="0"
+            android:layout_column="3"
+            android:layout_gravity="center"
+            android:textColor="@color/darkRed"/>
 
         <TextView
             android:text="LL2P Type"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="30dp" />
+            android:layout_row="1"
+            android:layout_column="0"
+            android:padding="5dp"
+            android:layout_gravity="left"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/lblLL2PtypeVal"
             android:text="@string/unknown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="30dp"
-            android:paddingLeft="150dp"/>
+            android:layout_row="1"
+            android:layout_column="1"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:textColor="@color/darkRed"
+            />
 
         <TextView
             android:text="LL2P CRC"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="45dp" />
+            android:layout_row="1"
+            android:layout_column="2"
+            android:layout_gravity="left"
+            android:textStyle="bold"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"/>
 
         <TextView
             android:id="@+id/lblLL2PcrcVal"
             android:text="@string/unknown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="45dp"
-            android:paddingLeft="150dp"/>
+            android:layout_row="1"
+            android:layout_column="3"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:textColor="@color/darkRed"/>
 
         <TextView
-            android:text="------------------- LL2P Payload -------------------"
-            android:layout_width="match_parent"
+            android:text="---------------  LL2P Payload  ---------------"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="60dp" />
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_columnSpan="4"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/lblLL2PpayloadVal"
             android:text="@string/unknown"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="75dp" />
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_columnSpan="4"
+            android:padding="5dp"
+            android:textColor="@color/darkRed"/>
 
-    </RelativeLayout>
+    </GridLayout>
 </RelativeLayout>

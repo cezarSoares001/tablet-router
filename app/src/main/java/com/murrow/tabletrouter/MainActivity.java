@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.murrow.network.LL2P;
+import com.murrow.network.*;
 import com.murrow.support.*;
 
 public class MainActivity extends AppCompatActivity
 {
 
-    private Factory myFactory;
+    private Factory factory;
     private UIManager uiManager;
 
     @Override
@@ -20,13 +20,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myFactory = new Factory(this);
-        uiManager = myFactory.getUIManager();
+        factory = new Factory(this);
+        uiManager = factory.getUIManager();
         uiManager.raiseToast("All done!");
 
-        byte[] arr = {(byte)0xAA,(byte)0xAB};
-
-        LL2P ll2p = new LL2P(arr);
+        uiManager.updateLL2PDisplay(factory.getLL2PFrame());
     }
 
     @Override
@@ -49,7 +47,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.optShowIPAddr)
         {
             uiManager.raiseToast(NetworkConstants.IP_ADDRESS);
-            uiManager.setLblIPAddrVal(NetworkConstants.IP_ADDRESS);
         }
 
         return super.onOptionsItemSelected(item);

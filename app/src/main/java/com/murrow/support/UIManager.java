@@ -1,5 +1,6 @@
 package com.murrow.support;
 
+import com.murrow.network.LL2P;
 import com.murrow.tabletrouter.R;
 import android.app.Activity;
 import android.content.Context;
@@ -15,8 +16,13 @@ public class UIManager
     private Activity parentActivity;
     private Context context;
     private Factory myFactory;
-    private TextView lblIPAddr;
-    private TextView lblIPAddrVal;
+
+    //private LL2P frame; - necessary? Step 3 in "Modify App's Display" but not seeing it's use
+    private TextView lblLL2PdstAddrVal;
+    private TextView lblLL2PsrcAddrVal;
+    private TextView lblLL2PtypeVal;
+    private TextView lblLL2PcrcVal;
+    private TextView lblLL2PpayloadVal;
 
     public UIManager()
     {
@@ -37,15 +43,22 @@ public class UIManager
         Toast.makeText(context, value, Toast.LENGTH_SHORT).show();
     }
 
-    private void setupMainScreen()
+    public void updateLL2PDisplay(LL2P frame)
     {
-        lblIPAddr = (TextView) parentActivity.findViewById(R.id.lblIPAddr);
-        lblIPAddrVal = (TextView) parentActivity.findViewById(R.id.lblIPAddrVal);
+        lblLL2PdstAddrVal.setText(frame.getDstAddrHexString());
+        lblLL2PsrcAddrVal.setText(frame.getSrcAddrHexString());
+        lblLL2PtypeVal.setText(frame.getTypeHexString());
+        lblLL2PcrcVal.setText(frame.getCRCHexString());
+        lblLL2PpayloadVal.setText(frame.getPayloadString());
     }
 
-    public void setLblIPAddrVal(String ipAddr)
+    private void setupMainScreen()
     {
-        lblIPAddrVal.setText(ipAddr);
+        lblLL2PdstAddrVal = (TextView) parentActivity.findViewById(R.id.lblLL2PdstAddrVal);
+        lblLL2PsrcAddrVal = (TextView) parentActivity.findViewById(R.id.lblLL2PsrcAddrVal);
+        lblLL2PtypeVal = (TextView) parentActivity.findViewById(R.id.lblLL2PtypeVal);
+        lblLL2PcrcVal = (TextView) parentActivity.findViewById(R.id.lblLL2PcrcVal);
+        lblLL2PpayloadVal = (TextView) parentActivity.findViewById(R.id.lblLL2PpayloadVal);
     }
 
 }
