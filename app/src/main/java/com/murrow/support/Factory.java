@@ -50,8 +50,8 @@ public class Factory
         uiManager = new UIManager();
         constants = new NetworkConstants(parentActivity);
         soundPlayer = new SoundPlayer(parentActivity);
-        //frame = new LL2P(NetworkConstants.MY_LL2P_ADDR, NetworkConstants.MY_LL2P_ADDR, NetworkConstants.TYPE_LL3P, "Hello, my name is Corbin");
-        frame = new LL2P(Utilities.stringToBytes("12345665432198987878Payload"));
+        frame = new LL2P(NetworkConstants.MY_LL2P_ADDR, NetworkConstants.MY_LL2P_ADDR, NetworkConstants.TYPE_LL3P, "Hello, my name is Corbin. I am writing a router that lives on top of UDP.");
+        //frame = new LL2P(Utilities.stringToBytes("12345665432198987878Payload"));
     }
 
     private void getObjectReferences()
