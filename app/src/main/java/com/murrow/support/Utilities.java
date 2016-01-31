@@ -1,5 +1,7 @@
 package com.murrow.support;
 
+import android.util.Base64;
+
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -14,6 +16,16 @@ public class Utilities {
     public static String padHex(String hex, int len)
     {
         return prependString(hex, len).replaceAll(" ", "0");
+    }
+
+    public static String bytesToString(byte[] bytes)
+    {
+        return new String(Base64.decode(bytes, Base64.DEFAULT));
+    }
+
+    public static byte[] stringToBytes(String string)
+    {
+        return Base64.encode(string.getBytes(), Base64.DEFAULT);
     }
 
     public static String prependString(String str, int len)

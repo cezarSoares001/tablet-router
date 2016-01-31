@@ -1,7 +1,5 @@
 package com.murrow.network;
 
-import android.util.Base64;
-
 import com.murrow.support.NetworkConstants;
 import com.murrow.support.Utilities;
 
@@ -25,7 +23,7 @@ public class LL2P
         setDstAddr(dstAddr);
         setSrcAddr(srcAddr);
         setType(type);
-        setPayload(Base64.encode(payload.getBytes(), Base64.DEFAULT));
+        setPayload(Utilities.stringToBytes(payload));
 
         this.crc = new CRC16();
         calculateCRC();
@@ -33,14 +31,16 @@ public class LL2P
 
     public LL2P(byte[] data)
     {
-        String tmpData = "";
+        String tmpData = Utilities.bytesToString(data);
 
-        for (byte b : data)
-            tmpData += (char)b;
+        setDstAddr(tmpData.substring(0, 6));
+        setSrcAddr(tmpData.substring(6, 12));
+        setType(tmpData.substring(12, 16));
 
-        setDstAddr(tmpData.substring(0, 5));
-        setSrcAddr(tmpData.substring(6, 11));
-        setType(tmpData.substring(12, 15));
+        crc = new CRC16();
+        setCRC(tmpData.substring(16,20));
+
+        setPayload(Utilities.stringToBytes(tmpData.substring((20))));
     }
 
     public LL2P()
@@ -48,7 +48,7 @@ public class LL2P
         setDstAddr("000000");
         setSrcAddr("000000");
         setType("0000");
-        setPayload(Base64.encode("0".getBytes(), Base64.DEFAULT));
+        setPayload(Utilities.stringToBytes("0"));
 
         this.crc = new CRC16();
         calculateCRC();
@@ -91,10 +91,9 @@ public class LL2P
         payload = arr;
     }
 
-    //Todo: implement setCRC
     public void setCRC(String val)
     {
-
+        crc.setCRC(Integer.valueOf(val,16));
     }
 
     /* ---- GETTERS ---- */
@@ -145,7 +144,7 @@ public class LL2P
 
     public String getPayloadString()
     {
-        return new String(Base64.decode(payload, Base64.DEFAULT));
+        return Utilities.bytesToString(payload);
     }
 
     /* ---- PRIVATE METHODS ---- */
@@ -157,7 +156,7 @@ public class LL2P
     //Todo: implement getFrameBytes
     private byte[] getFrameBytes()
     {
-        return null;
+        return Utilities.stringToBytes(this.toString() + getCRCHexString());
     }
 
     /* ---- OVERRIDES ---- */
