@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity
         factory = new Factory(this);
         uiManager = factory.getUIManager();
         uiManager.raiseToast("All done!");
-
-        uiManager.updateLL2PDisplay(factory.getLL2PFrame());
     }
 
     @Override
@@ -44,9 +42,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.optShowIPAddr)
+        switch (id)
         {
-            uiManager.raiseToast(NetworkConstants.IP_ADDRESS);
+            case R.id.optShowIPAddr: uiManager.raiseToast(NetworkConstants.IP_ADDRESS); break;
+            case R.id.optSendLL2PFrame: factory.getLL1Daemon().sendLL2PFrame(); break;
+
+            default: break;
         }
 
         return super.onOptionsItemSelected(item);

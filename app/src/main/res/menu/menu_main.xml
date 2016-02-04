@@ -6,8 +6,12 @@
 
     <item
         android:id="@+id/optShowIPAddr"
-        android:orderInCategory="10"
         android:title="Show IP Address"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/optSendLL2PFrame"
+        android:title="Send Current Frame"
         app:showAsAction="never" />
 
 </menu>

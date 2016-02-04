@@ -1,6 +1,8 @@
 package com.murrow.network;
 
+import com.murrow.support.Factory;
 import com.murrow.support.NetworkConstants;
+import com.murrow.support.UIManager;
 import com.murrow.support.Utilities;
 
 import java.util.Arrays;
@@ -15,6 +17,8 @@ public class LL2P
     private Integer type;
     private byte[] payload;
     private CRC16 crc;
+
+    private UIManager uiManager;
 
     /* ---- CONSTRUCTORS ---- */
 
@@ -38,7 +42,7 @@ public class LL2P
         setType(tmpData.substring(12, 16));
 
         crc = new CRC16();
-        setCRC(tmpData.substring(16,20));
+        setCRC(tmpData.substring(16, 20));
 
         setPayload(Utilities.stringToBytes(tmpData.substring((20))));
     }
@@ -52,6 +56,29 @@ public class LL2P
 
         this.crc = new CRC16();
         calculateCRC();
+    }
+
+    public void updateLL2PFrame(byte[] frame)
+    {
+        String tmpData = Utilities.bytesToString(frame);
+
+        setDstAddr(tmpData.substring(0, 6));
+        setSrcAddr(tmpData.substring(6, 12));
+        setType(tmpData.substring(12, 16));
+        setPayload(Utilities.stringToBytes(tmpData.substring((20))));
+
+        calculateCRC();
+    }
+
+    public void getObjectReferences(Factory factory)
+    {
+        uiManager = factory.getUIManager();
+        uiManager.updateLL2PDisplay(this);
+    }
+
+    public byte[] getFrameBytes()
+    {
+        return Utilities.stringToBytes(this.toString() + getCRCHexString());
     }
 
     /* ---- SETTERS ---- */
@@ -150,13 +177,7 @@ public class LL2P
     /* ---- PRIVATE METHODS ---- */
     private void calculateCRC()
     {
-        crc.update(this.toString().getBytes());
-    }
-
-    //Todo: implement getFrameBytes
-    private byte[] getFrameBytes()
-    {
-        return Utilities.stringToBytes(this.toString() + getCRCHexString());
+        crc.update(Utilities.stringToBytes(this.toString()));
     }
 
     /* ---- OVERRIDES ---- */
