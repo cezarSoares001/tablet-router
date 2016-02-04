@@ -36,7 +36,7 @@ public class LL1Daemon
         uiManager = factory.getUIManager();
         frame = factory.getFrame();
 
-        new ListenForUDPPacket().execute(receiveSocket);
+        new ListenForUDPPacket().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, receiveSocket);
 
         setAdjacency(0x1, "192.168.1.1");
         setAdjacency(0x010203, "10.30.52.148");
@@ -78,7 +78,7 @@ public class LL1Daemon
         if (foundValidAddr)
         {
             DatagramPacket packet = new DatagramPacket(frame.getFrameBytes(), frame.getFrameBytes().length, IPAddr, port);
-            new SendUDPPacket().execute(sendSocket, packet);
+            new SendUDPPacket().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, sendSocket, packet);
         }
     }
 

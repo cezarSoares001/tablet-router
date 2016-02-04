@@ -42,9 +42,9 @@ public class LL2P
         setType(tmpData.substring(12, 16));
 
         crc = new CRC16();
-        setCRC(tmpData.substring(16, 20));
+        setCRC(tmpData.substring(tmpData.length()-4, tmpData.length()));
 
-        setPayload(Utilities.stringToBytes(tmpData.substring((20))));
+        setPayload(Utilities.stringToBytes(tmpData.substring(16, tmpData.length()-4)));
     }
 
     public LL2P()
