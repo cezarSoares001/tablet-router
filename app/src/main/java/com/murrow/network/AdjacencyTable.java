@@ -13,7 +13,7 @@ public class AdjacencyTable
 
     public AdjacencyTable()
     {
-        table = new TreeSet<AdjacencyTableEntry>();
+        table = new TreeSet<>();
     }
 
     public void addEntry(Integer LL2PAddr, String IPAddr)
@@ -56,5 +56,10 @@ public class AdjacencyTable
         }
 
         return null;
+    }
+
+    public TreeSet<AdjacencyTableEntry> getTableEntries()
+    {
+        return table;
     }
 }

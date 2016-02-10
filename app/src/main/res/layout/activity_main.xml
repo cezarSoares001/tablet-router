@@ -19,7 +19,9 @@
         android:layout_alignParentStart="true"
         android:background="@color/blue"
         android:minWidth="300dp"
-        android:padding="2dp">
+        android:padding="2dp"
+        android:id="@+id/glLL2PDisplay"
+        android:layout_marginBottom="5dp">
 
 
         <TextView
@@ -137,4 +139,93 @@
             android:textColor="@color/darkRed"/>
 
     </GridLayout>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/glLL2PDisplay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/llAdjacencyTable"
+        android:columnCount="3"
+        android:background="@color/green"
+        android:layout_alignRight="@+id/glLL2PDisplay"
+        android:layout_alignEnd="@+id/glLL2PDisplay"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/lvAdjTable"
+                android:layout_column="0"
+                android:layout_span="2"
+                android:layout_weight="1"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LL2P Address"
+                android:id="@+id/textView"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/etLL2PAddr"
+                android:hint="FFFFFF"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IP Address"
+                android:id="@+id/textView2"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/etIPPAddr"
+                android:hint="255.255.255.255"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Entry"
+                android:id="@+id/btnAddAdj"
+                android:layout_span="2"
+                android:layout_weight="1"/>
+        </TableRow>
+
+    </TableLayout>
 </RelativeLayout>

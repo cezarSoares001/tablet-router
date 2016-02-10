@@ -4,12 +4,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.murrow.support.Factory;
+import com.murrow.support.NetworkConstants;
 import com.murrow.support.UIManager;
 import com.murrow.support.Utilities;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -29,6 +32,8 @@ public class LL1Daemon
     {
         table = new AdjacencyTable();
         openUDPPorts();
+
+        setAdjacency(Integer.valueOf(NetworkConstants.MY_LL2P_ADDR, 16), "127.0.0.1");
     }
 
     public void getObjectReferences(Factory factory)
@@ -37,9 +42,6 @@ public class LL1Daemon
         frame = factory.getFrame();
 
         new ListenForUDPPacket().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, receiveSocket);
-
-        setAdjacency(0x1, "192.168.1.1");
-        setAdjacency(0x010203, "10.30.52.148");
     }
 
     public void setAdjacency(Integer LL2PAddr, String IPAddr)
@@ -55,6 +57,13 @@ public class LL1Daemon
     public AdjacencyTable getAdjacencyTable()
     {
         return table;
+    }
+
+    public List<AdjacencyTableEntry> getAdjacencyList()
+    {
+        List<AdjacencyTableEntry> list = new ArrayList<>();
+        list.addAll(table.getTableEntries());
+        return list;
     }
 
     public void sendLL2PFrame()
@@ -135,7 +144,8 @@ public class LL1Daemon
         protected void onPostExecute(byte[] bytes)
         {
             uiManager.raiseToast(Utilities.bytesToString(bytes));
-            new ListenForUDPPacket().execute(receiveSocket);
+            Log.e("Recieved Data", new String(bytes));
+            new ListenForUDPPacket().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, receiveSocket);
         }
     }
 }
