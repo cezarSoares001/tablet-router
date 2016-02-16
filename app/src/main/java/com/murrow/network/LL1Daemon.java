@@ -24,6 +24,7 @@ public class LL1Daemon
 
     private LL2P frame;
     private UIManager uiManager;
+    private LL2Daemon ll2daemon;
     private AdjacencyTable table;
     private DatagramSocket sendSocket;
     private DatagramSocket receiveSocket;
@@ -40,6 +41,7 @@ public class LL1Daemon
     {
         uiManager = factory.getUIManager();
         frame = factory.getFrame();
+        ll2daemon = factory.getLL2Daemon();
 
         new ListenForUDPPacket().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, receiveSocket);
     }
@@ -73,22 +75,14 @@ public class LL1Daemon
 
     public void sendLL2PFrame(LL2P frame)
     {
-        boolean foundValidAddr = true;
-        InetAddress IPAddr = null;
+        InetAddress IPAddr = table.getIPforMAC(frame.getDstAddr());
 
-        try
-        {
-            IPAddr = table.getIPforMAC(frame.getDstAddr());
-        } catch (Exception e)
-        {
-            foundValidAddr = false;
-        }
-
-        if (foundValidAddr)
+        if (IPAddr != null)
         {
             DatagramPacket packet = new DatagramPacket(frame.getFrameBytes(), frame.getFrameBytes().length, IPAddr, port);
             new SendUDPPacket().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, sendSocket, packet);
-        }
+        } else
+            uiManager.raiseToast("Couldn't send frame: " + frame.getDstAddrHexString() + " is not adjacent.");
     }
 
     public void openUDPPorts()
@@ -143,8 +137,7 @@ public class LL1Daemon
         @Override
         protected void onPostExecute(byte[] bytes)
         {
-            uiManager.raiseToast(Utilities.bytesToString(bytes));
-            Log.e("Recieved Data", new String(bytes));
+            ll2daemon.receiveLL2PFrame(bytes);
             new ListenForUDPPacket().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, receiveSocket);
         }
     }

@@ -11,7 +11,7 @@
 
     <item
         android:id="@+id/optSendLL2PFrame"
-        android:title="Send Current Frame"
+        android:title="Send Test Frame"
         app:showAsAction="never" />
 
 </menu>

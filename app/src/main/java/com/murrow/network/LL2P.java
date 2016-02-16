@@ -76,7 +76,8 @@ public class LL2P
 
     public byte[] getFrameBytes()
     {
-        return Utilities.stringToBytes(this.toString() + getCRCHexString());
+        return (this.toString() + getCRCHexString()).getBytes(); //this does not encode the frame in Base64 but it shows correctly on the mirror.
+        //return Utilities.stringToBytes(this.toString() + getCRCHexString()); - I think this is how it should be done, but this is gibberish...
     }
 
     /* ---- SETTERS ---- */

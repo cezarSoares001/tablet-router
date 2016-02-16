@@ -34,10 +34,12 @@ public class UIManager
     private TextView lblLL2PcrcVal;
     private TextView lblLL2PpayloadVal;
 
-    private EditText teLL2PAddr;
-    private EditText teIPAddr;
+    private EditText etLL2PAddr;
+    private EditText etIPAddr;
     private ListView lvAdjTable;
     private Button btnAddAdj;
+
+    private EditText etPayload;
 
     private List<AdjacencyTableEntry> adjacencyList;
     private ArrayAdapter<AdjacencyTableEntry> adjacencyListAdapter;
@@ -82,10 +84,12 @@ public class UIManager
         lblLL2PcrcVal = (TextView) parentActivity.findViewById(R.id.lblLL2PcrcVal);
         lblLL2PpayloadVal = (TextView) parentActivity.findViewById(R.id.lblLL2PpayloadVal);
 
-        teLL2PAddr = (EditText) parentActivity.findViewById(R.id.etLL2PAddr);
-        teIPAddr = (EditText) parentActivity.findViewById(R.id.etIPPAddr);
+        etLL2PAddr = (EditText) parentActivity.findViewById(R.id.etLL2PAddr);
+        etIPAddr = (EditText) parentActivity.findViewById(R.id.etIPPAddr);
         btnAddAdj = (Button) parentActivity.findViewById(R.id.btnAddAdj);
         lvAdjTable = (ListView) parentActivity.findViewById(R.id.lvAdjTable);
+
+        etPayload = (EditText) parentActivity.findViewById(R.id.etPayload);
 
         btnAddAdj.setOnClickListener(addAdjacency);
 
@@ -93,6 +97,8 @@ public class UIManager
 
         lvAdjTable.setOnItemClickListener(sendToLL2P);
         lvAdjTable.setOnItemLongClickListener(removeAdjacency);
+
+        etPayload.setText("Echo Request Payload");
     }
 
     private void resetAdjacencyListAdapter()
@@ -123,8 +129,7 @@ public class UIManager
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
             AdjacencyTableEntry target = adjacencyList.get(position);
-            LL2P frame = new LL2P(Integer.toHexString(target.getLL2PAddr()), NetworkConstants.MY_LL2P_ADDR, NetworkConstants.TYPE_ARP, "Payload");
-            factory.getLL1Daemon().sendLL2PFrame(frame);
+            factory.getLL2Daemon().sendLL2PEchoRequest(target.getLL2PAddr(), etPayload.getText().toString());
         }
     };
 
@@ -133,12 +138,18 @@ public class UIManager
         @Override
         public void onClick(View v)
         {
-            Integer LL2PVal = Integer.valueOf(teLL2PAddr.getText().toString(), 16);
-            String IPVal = teIPAddr.getText().toString();
-            factory.getLL1Daemon().setAdjacency(LL2PVal, IPVal);
-            teLL2PAddr.setText("");
-            teIPAddr.setText("");
-            resetAdjacencyListAdapter();
+            try
+            {
+                Integer LL2PVal = Integer.valueOf(etLL2PAddr.getText().toString(), 16);
+                String IPVal = etIPAddr.getText().toString();
+                factory.getLL1Daemon().setAdjacency(LL2PVal, IPVal);
+                etLL2PAddr.setText("");
+                etIPAddr.setText("");
+                resetAdjacencyListAdapter();
+            } catch (Exception e)
+            {
+                raiseToast("Adjacency not added. Verify input.");
+            }
         }
     };
 }

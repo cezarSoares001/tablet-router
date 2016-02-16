@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Network;
 
 import com.murrow.network.LL1Daemon;
+import com.murrow.network.LL2Daemon;
 import com.murrow.network.LL2P;
 
 /**
@@ -18,6 +19,7 @@ public class Factory
     private SoundPlayer soundPlayer;
     private LL2P frame;
     private LL1Daemon ll1Daemon;
+    private LL2Daemon ll2Daemon;
 
     public Factory(Activity callingActivity)
     {
@@ -52,13 +54,19 @@ public class Factory
         return ll1Daemon;
     }
 
+    public LL2Daemon getLL2Daemon()
+    {
+        return ll2Daemon;
+    }
+
     private void createObjects()
     {
         uiManager = new UIManager();
         constants = new NetworkConstants(parentActivity);
         soundPlayer = new SoundPlayer(parentActivity);
-        frame = new LL2P("010203", NetworkConstants.MY_LL2P_ADDR, NetworkConstants.TYPE_ARP, "Hello!");
+        frame = new LL2P("010203", NetworkConstants.MY_LL2P_ADDR, NetworkConstants.TYPE_ARP, "This is a test frame.");
         ll1Daemon = new LL1Daemon();
+        ll2Daemon = new LL2Daemon();
     }
 
     private void getObjectReferences()
@@ -66,5 +74,6 @@ public class Factory
         uiManager.getObjectReferences(this);
         frame.getObjectReferences(this);
         ll1Daemon.getObjectReferences(this);
+        ll2Daemon.getObjectReferences(this);
     }
 }
