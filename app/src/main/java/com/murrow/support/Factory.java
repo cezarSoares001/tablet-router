@@ -15,6 +15,7 @@ public class Factory
 {
     private Activity parentActivity;
     private UIManager uiManager;
+    private NetworkConstants constants;
     private SoundPlayer soundPlayer;
     private LL2P frame;
     private LL1Daemon ll1Daemon;
@@ -61,6 +62,7 @@ public class Factory
     private void createObjects()
     {
         uiManager = new UIManager();
+        constants = new NetworkConstants(parentActivity);
         soundPlayer = new SoundPlayer(parentActivity);
         frame = new LL2P("010203", NetworkConstants.MY_LL2P_ADDR, NetworkConstants.TYPE_ARP, "This is a test frame.");
         ll1Daemon = new LL1Daemon();
