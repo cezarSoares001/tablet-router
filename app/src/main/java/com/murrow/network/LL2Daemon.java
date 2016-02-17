@@ -61,8 +61,8 @@ public class LL2Daemon
                     case NetworkConstants.TYPE_ARP: break;
                     case NetworkConstants.TYPE_LRP: break;
                     case NetworkConstants.TYPE_ECHO_REQUEST: sendEchoReply(frame); break;
-                    case NetworkConstants.TYPE_ECHO_REPLY: uiManager.raiseToast("Received echo reply!"); break;
-                    default: uiManager.raiseToast("Frame typed incorrectly"); break;
+                    case NetworkConstants.TYPE_ECHO_REPLY: uiManager.raiseToast("Received echo reply from " + frame.getDstAddrHexString() + "!"); break;
+                    default: uiManager.raiseToast("Frame typed incorrectly: " + frame.getTypeHexString()); break;
                 }
             } else
             {
@@ -84,7 +84,7 @@ public class LL2Daemon
     {
         LL2P reply = new LL2P(frame.getSrcAddrHexString(), Integer.toHexString(localLL2PAddr), NetworkConstants.TYPE_ECHO_REPLY, frame.getPayloadString());
         uiManager.updateLL2PDisplay(frame);
-        uiManager.raiseToast("Sending Echo Reply...");
+        uiManager.raiseToast("Sending Echo Reply to " + frame.getDstAddrHexString());
         ll1Daemon.sendLL2PFrame(reply);
     }
 
