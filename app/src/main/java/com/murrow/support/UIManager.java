@@ -98,7 +98,7 @@ public class UIManager
         lvAdjTable.setOnItemClickListener(sendToLL2P);
         lvAdjTable.setOnItemLongClickListener(removeAdjacency);
 
-        etPayload.setText("Echo Request Payload");
+        etPayload.setText("Echo Payload");
     }
 
     private void resetAdjacencyListAdapter()

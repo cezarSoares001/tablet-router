@@ -66,7 +66,7 @@ public class LL2Daemon
                 }
             } else
             {
-                //Forward it on?
+                uiManager.raiseToast("Received frame for someone else");
             }
         } else
             uiManager.raiseToast("Invalid Frame, CRC error");
@@ -90,9 +90,9 @@ public class LL2Daemon
 
     private boolean isValidFrame(LL2P frame)
     {
-        //Check CRC
+        LL2P checkFrame = new LL2P(frame.getDstAddrHexString(), frame.getSrcAddrHexString(), frame.getTypeHexString(), frame.getPayloadString());
 
-        if (true)
+        if (checkFrame.getCRC() == frame.getCRC())
         {
             return true;
         }
