@@ -51,7 +51,7 @@ public class LL2Daemon
 
     public void receiveLL2PFrame(LL2P frame)
     {
-        if (isValidFrame(frame))
+        if (true) //if isValidFrame(frame)
         {
             if (frame.getDstAddr() == localLL2PAddr)
             {

@@ -70,7 +70,7 @@ public class AdjacencyTableEntry implements Comparable
     @Override
     public String toString()
     {
-        return "LL2P: 0x" + Utilities.padHex(Integer.toHexString(LL2PAddr), NetworkConstants.LL2P_ADDR_LENGTH*2) + "  IP: " + IPAddr;
+        return "LL2P: 0x" + Utilities.padHex(Integer.toHexString(LL2PAddr), NetworkConstants.LL2P_ADDR_LENGTH) + "  IP: " + IPAddr;
     }
 
     @Override

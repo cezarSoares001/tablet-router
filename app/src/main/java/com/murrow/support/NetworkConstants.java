@@ -24,9 +24,9 @@ public class NetworkConstants {
 
     public static final String[] VALID_TYPES = {TYPE_LL3P, TYPE_ARP, TYPE_LRP, TYPE_ECHO_REQUEST, TYPE_ECHO_REPLY};
 
-    public static final int LL2P_ADDR_LENGTH = 3;
-    public static final int CRC_LENGTH = 2;
-    public static final int LL2P_TYPE_LENGTH = 2;
+    public static final int LL2P_ADDR_LENGTH = 6;
+    public static final int CRC_LENGTH = 4;
+    public static final int LL2P_TYPE_LENGTH = 4;
 
 
     //  SOUNDS

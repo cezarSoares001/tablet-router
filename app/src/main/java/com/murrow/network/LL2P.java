@@ -125,22 +125,22 @@ public class LL2P
     /* ---- GETTERS ---- */
     public String getDstAddrHexString()
     {
-        return Utilities.padHex(Integer.toHexString(dstAddr), NetworkConstants.LL2P_ADDR_LENGTH * 2);
+        return Utilities.padHex(Integer.toHexString(dstAddr), NetworkConstants.LL2P_ADDR_LENGTH);
     }
 
     public String getSrcAddrHexString()
     {
-        return Utilities.padHex(Integer.toHexString(srcAddr), NetworkConstants.LL2P_ADDR_LENGTH * 2);
+        return Utilities.padHex(Integer.toHexString(srcAddr), NetworkConstants.LL2P_ADDR_LENGTH);
     }
 
     public String getTypeHexString()
     {
-        return Utilities.padHex(Integer.toHexString(type), NetworkConstants.LL2P_TYPE_LENGTH * 2);
+        return Utilities.padHex(Integer.toHexString(type), NetworkConstants.LL2P_TYPE_LENGTH);
     }
 
     public String getCRCHexString()
     {
-        return Utilities.padHex(crc.getCRCHexString(), NetworkConstants.CRC_LENGTH * 2);
+        return Utilities.padHex(crc.getCRCHexString(), NetworkConstants.CRC_LENGTH);
     }
 
     public int getDstAddr()
