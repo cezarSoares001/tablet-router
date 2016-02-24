@@ -61,12 +61,12 @@ public class LL2Daemon
                     case NetworkConstants.TYPE_ARP: break;
                     case NetworkConstants.TYPE_LRP: break;
                     case NetworkConstants.TYPE_ECHO_REQUEST: sendEchoReply(frame); break;
-                    case NetworkConstants.TYPE_ECHO_REPLY: uiManager.raiseToast("Received echo reply from " + frame.getDstAddrHexString() + "!"); break;
+                    case NetworkConstants.TYPE_ECHO_REPLY: uiManager.raiseToast("Received echo reply from " + frame.getSrcAddrHexString() + "!"); break;
                     default: uiManager.raiseToast("Frame typed incorrectly: " + frame.getTypeHexString()); break;
                 }
             } else
             {
-                uiManager.raiseToast("Received frame for someone else");
+                uiManager.raiseToast("Received frame for someone else (" + frame.getDstAddrHexString() + ")");
             }
         } else
             uiManager.raiseToast("Invalid Frame, CRC error");
@@ -84,7 +84,7 @@ public class LL2Daemon
     {
         LL2P reply = new LL2P(frame.getSrcAddrHexString(), Integer.toHexString(localLL2PAddr), NetworkConstants.TYPE_ECHO_REPLY, frame.getPayloadString());
         uiManager.updateLL2PDisplay(frame);
-        uiManager.raiseToast("Sending Echo Reply to " + frame.getDstAddrHexString());
+        uiManager.raiseToast("Sending Echo Reply to " + reply.getDstAddrHexString());
         ll1Daemon.sendLL2PFrame(reply);
     }
 
