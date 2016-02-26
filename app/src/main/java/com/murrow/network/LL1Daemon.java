@@ -32,9 +32,11 @@ public class LL1Daemon
     public LL1Daemon()
     {
         table = new AdjacencyTable();
-        openUDPPorts();
 
-        setAdjacency(Integer.valueOf(NetworkConstants.MY_LL2P_ADDR, 16), "127.0.0.1");
+        table.addEntry(Integer.valueOf(NetworkConstants.MY_LL2P_ADDR, 16), "127.0.0.1");
+        table.addEntry(Integer.valueOf("010203", 16), "10.30.52.180");
+
+        openUDPPorts();
     }
 
     public void getObjectReferences(Factory factory)
@@ -49,6 +51,7 @@ public class LL1Daemon
     public void setAdjacency(Integer LL2PAddr, String IPAddr)
     {
         table.addEntry(LL2PAddr, IPAddr);
+        ll2daemon.sendARPUpdate(LL2PAddr);
     }
 
     public void removeAdjacency(Integer LL2PAddr)

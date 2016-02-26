@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
 /**
  * Created by Corbin Murrow on 2/4/2016.
  */
-public class AdjacencyTableEntry implements Comparable
+public class AdjacencyTableEntry implements Comparable<AdjacencyTableEntry>
 {
     private Integer LL2PAddr;
     private String IPAddr;
@@ -74,9 +74,8 @@ public class AdjacencyTableEntry implements Comparable
     }
 
     @Override
-    public int compareTo(Object another)
+    public int compareTo(AdjacencyTableEntry another)
     {
-        AdjacencyTableEntry tmp = (AdjacencyTableEntry)another;
-        return LL2PAddr.compareTo(tmp.getLL2PAddr());
+        return LL2PAddr.compareTo(another.getLL2PAddr());
     }
 }

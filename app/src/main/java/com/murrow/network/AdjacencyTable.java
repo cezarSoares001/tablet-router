@@ -28,7 +28,7 @@ public class AdjacencyTable
     {
         Iterator<AdjacencyTableEntry> it = table.iterator();
         boolean found = false;
-        AdjacencyTableEntry tmp = null;
+        AdjacencyTableEntry tmp;
 
         while (it.hasNext() && !found)
         {
@@ -44,7 +44,7 @@ public class AdjacencyTable
     public InetAddress getIPforMAC(Integer LL2PAddr)
     {
         Iterator<AdjacencyTableEntry> it = table.iterator();
-        AdjacencyTableEntry tmp = null;
+        AdjacencyTableEntry tmp;
 
         while (it.hasNext())
         {
