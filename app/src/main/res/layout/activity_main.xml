@@ -152,7 +152,7 @@
         android:layout_alignRight="@+id/glLL2PDisplay"
         android:layout_alignEnd="@+id/glLL2PDisplay"
         android:orientation="horizontal"
-        android:layout_marginBottom="5dp">
+        >
 
         <TableRow
             android:layout_width="match_parent"
@@ -250,5 +250,52 @@
                 android:layout_weight="1"/>
         </TableRow>
 
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/glLL2PDisplay"
+        android:layout_toRightOf="@+id/glLL2PDisplay"
+        android:layout_toEndOf="@+id/glLL2PDisplay"
+        android:minWidth="300dp"
+        android:layout_marginLeft="5dp"
+        android:columnCount="1"
+        >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:gravity="top|fill_vertical"
+            android:layout_gravity="top"
+            android:layout_marginBottom="2dp">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/lvRouteTable"
+                android:layout_column="0"
+                android:layout_span="1"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/purple"
+            android:gravity="bottom|fill_vertical"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="2dp">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/lvForwardingTable"
+                android:layout_column="0"
+                android:layout_span="1"
+                android:layout_weight="1"/>
+        </TableRow>
     </TableLayout>
 </RelativeLayout>

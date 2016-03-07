@@ -26,10 +26,12 @@ public class NetworkConstants {
     public static final String TYPE_ARP_REPLY = "8007";
 
     public static final int LL2P_ADDR_LENGTH = 6;
+    public static final int LL3P_ADDR_LENGTH = 4;
     public static final int CRC_LENGTH = 4;
     public static final int LL2P_TYPE_LENGTH = 4;
 
     public static final long ARP_TIMEOUT = 60;
+    public static final long ROUTE_TIMEOUT = 60; //this may change...
 
     //  SOUNDS
 	public static final int badPacketSound = 1;

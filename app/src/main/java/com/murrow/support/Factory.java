@@ -7,6 +7,8 @@ import com.murrow.network.ARPDaemon;
 import com.murrow.network.LL1Daemon;
 import com.murrow.network.LL2Daemon;
 import com.murrow.network.LL2P;
+import com.murrow.network.LRPDaemon;
+import com.murrow.network.RouteTable;
 import com.murrow.network.Scheduler;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -26,6 +28,7 @@ public class Factory
     private LL2Daemon ll2Daemon;
     private ARPDaemon arpDaemon;
     private Scheduler scheduler;
+    private LRPDaemon lrpDaemon;
 
     public Factory(Activity callingActivity)
     {
@@ -75,6 +78,11 @@ public class Factory
         return scheduler;
     }
 
+    public LRPDaemon getLRPDaemon()
+    {
+        return lrpDaemon;
+    }
+
     private void createObjects()
     {
         uiManager = new UIManager();
@@ -85,6 +93,7 @@ public class Factory
         ll2Daemon = new LL2Daemon();
         arpDaemon = new ARPDaemon();
         scheduler = new Scheduler();
+        lrpDaemon = new LRPDaemon();
     }
 
     private void getObjectReferences()
@@ -95,5 +104,6 @@ public class Factory
         ll2Daemon.getObjectReferences(this);
         arpDaemon.getObjectReferences(this);
         scheduler.getObjectReferences(this);
+        lrpDaemon.getObjectReferences(this);
     }
 }

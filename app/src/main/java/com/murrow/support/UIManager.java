@@ -2,6 +2,7 @@ package com.murrow.support;
 
 import com.murrow.network.AdjacencyTableEntry;
 import com.murrow.network.LL2P;
+import com.murrow.network.RouteTableEntry;
 import com.murrow.tabletrouter.R;
 import android.app.Activity;
 import android.content.Context;
@@ -41,8 +42,17 @@ public class UIManager
 
     private EditText etPayload;
 
+    private ListView lvRouteTable;
+    private ListView lvForwardingTable;
+
     private List<AdjacencyTableEntry> adjacencyList;
     private ArrayAdapter<AdjacencyTableEntry> adjacencyListAdapter;
+
+    private List<RouteTableEntry> routeList;
+    private ArrayAdapter<RouteTableEntry> routeListAdapter;
+
+    private List<RouteTableEntry> forwardingList;
+    private ArrayAdapter<RouteTableEntry> forwardingListAdapter;
 
     public UIManager()
     {
@@ -56,8 +66,12 @@ public class UIManager
         context = parentActivity.getBaseContext();
 
         adjacencyList = factory.getLL1Daemon().getAdjacencyList();
+        routeList = factory.getLRPDaemon().getRouteList();
+        forwardingList = factory.getLRPDaemon().getForwardingList();
 
         adjacencyListAdapter = new ArrayAdapter<>(parentActivity, android.R.layout.simple_list_item_1, adjacencyList);
+        routeListAdapter = new ArrayAdapter<>(parentActivity, android.R.layout.simple_list_item_1, routeList);
+        forwardingListAdapter = new ArrayAdapter<>(parentActivity, android.R.layout.simple_list_item_1, forwardingList);
 
         setupMainScreen();
     }
@@ -91,6 +105,9 @@ public class UIManager
 
         etPayload = (EditText) parentActivity.findViewById(R.id.etPayload);
 
+        lvRouteTable = (ListView) parentActivity.findViewById(R.id.lvRouteTable);
+        lvForwardingTable = (ListView) parentActivity.findViewById(R.id.lvForwardingTable);
+
         btnAddAdj.setOnClickListener(addAdjacency);
 
         lvAdjTable.setAdapter(adjacencyListAdapter);
@@ -99,6 +116,29 @@ public class UIManager
         lvAdjTable.setOnItemLongClickListener(removeAdjacency);
 
         etPayload.setText("Echo Payload");
+
+        lvRouteTable.setAdapter(routeListAdapter);
+        lvForwardingTable.setAdapter(forwardingListAdapter);
+    }
+
+    private void resetRouteListAdapter()
+    {
+        routeList = factory.getLRPDaemon().getRouteList();
+        routeListAdapter.clear();
+        Iterator<RouteTableEntry> it = routeList.iterator();
+
+        while (it.hasNext())
+            routeListAdapter.add(it.next());
+    }
+
+    private void resetForwardingListAdapter()
+    {
+        forwardingList = factory.getLRPDaemon().getForwardingList();
+        forwardingListAdapter.clear();
+        Iterator<RouteTableEntry> it = forwardingList.iterator();
+
+        while (it.hasNext())
+            forwardingListAdapter.add(it.next());
     }
 
     private void resetAdjacencyListAdapter()

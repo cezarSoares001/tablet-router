@@ -35,6 +35,11 @@ public class Utilities {
         return new String(tmp) + str;
     }
 
+    public static Integer getNetworkFromInteger(Integer addr)
+    {
+        return Integer.valueOf(Integer.toHexString(addr).substring(0, 1), 16);
+    }
+
 	/**
 	 * This method returns the number of seconds since the program began.  
 	 * @return

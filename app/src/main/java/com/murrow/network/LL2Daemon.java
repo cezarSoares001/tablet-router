@@ -47,8 +47,10 @@ public class LL2Daemon
 
     public void sendLL2PEchoRequest(Integer dstAddr, String payload)
     {
+
         LL2P frame = new LL2P(Integer.toHexString(dstAddr), Integer.toHexString(localLL2PAddr), NetworkConstants.TYPE_ECHO_REQUEST, payload);
         sendLL2PFrame(frame);
+        uiManager.raiseToast("Sending echo request to " + frame.getDstAddrHexString());
     }
 
     public void receiveLL2PFrame(LL2P frame)
@@ -107,7 +109,7 @@ public class LL2Daemon
     {
         LL2P reply = new LL2P(frame.getSrcAddrHexString(), Integer.toHexString(localLL2PAddr), NetworkConstants.TYPE_ECHO_REPLY, frame.getPayloadString());
         uiManager.updateLL2PDisplay(frame);
-        uiManager.raiseToast("Sending Echo Reply to " + reply.getDstAddrHexString());
+        uiManager.raiseToast("Sending echo reply to " + reply.getDstAddrHexString());
         ll1Daemon.sendLL2PFrame(reply);
     }
 
