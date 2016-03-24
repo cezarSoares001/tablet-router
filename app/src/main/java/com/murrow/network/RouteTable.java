@@ -16,7 +16,7 @@ import java.util.TreeSet;
 /**
  * Created by Corbin Murrow on 3/4/2016.
  */
-public class RouteTable
+public class RouteTable implements Runnable
 {
     UIManager uiManager;
     Activity activity;
@@ -35,7 +35,6 @@ public class RouteTable
 
     public void addOrUpdateEntry(Integer srcAddr, Integer network, Integer distance, Integer nextHop)
     {
-
         Iterator<RouteTableEntry> it = table.iterator();
         RouteTableEntry tmp;
 
@@ -103,5 +102,19 @@ public class RouteTable
                 table.remove(tmp);
             }
         }
+    }
+
+    @Override
+    public void run()
+    {
+        this.removeOldRoutes();
+
+        activity.runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                uiManager.updateRoutingTable();
+            }
+        });
     }
 }

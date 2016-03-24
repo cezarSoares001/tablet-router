@@ -1,6 +1,7 @@
 package com.murrow.network;
 
 import com.murrow.support.Factory;
+import com.murrow.support.NetworkConstants;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -12,8 +13,8 @@ public class Scheduler
 {
     private ScheduledThreadPoolExecutor pool;
     private ARPTable arpTable;
-    //private RoutingTable routes;
-    //private LRPDaemon lrpDaemon;
+    private RouteTable routes;
+    private LRPDaemon lrpDaemon;
 
     public Scheduler()
     {
@@ -23,8 +24,8 @@ public class Scheduler
     public void getObjectReferences(Factory factory)
     {
         arpTable = factory.getARPDaemon().getARPTable();
-        //routes = factory.getRoutingTable();
-        //lrpDaemon = factory.getLRPDaemon();
+        routes = factory.getLRPDaemon().getRouteTable();
+        lrpDaemon = factory.getLRPDaemon();
 
         beginScheduledTasks();
     }
@@ -32,5 +33,7 @@ public class Scheduler
     private void beginScheduledTasks()
     {
         pool.scheduleAtFixedRate(arpTable, 10, 80, TimeUnit.SECONDS);
+        pool.scheduleAtFixedRate(routes, NetworkConstants.ROUTER_BOOT_TIME, NetworkConstants.ROUTE_TIMEOUT, TimeUnit.SECONDS);
+        pool.scheduleAtFixedRate(lrpDaemon, NetworkConstants.ROUTER_BOOT_TIME, NetworkConstants.ROUTE_TIMEOUT, TimeUnit.SECONDS);
     }
 }

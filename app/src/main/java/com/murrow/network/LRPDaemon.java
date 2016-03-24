@@ -3,6 +3,7 @@ package com.murrow.network;
 import android.app.Activity;
 
 import com.murrow.support.Factory;
+import com.murrow.support.NetworkConstants;
 import com.murrow.support.UIManager;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by Corbin Murrow on 3/6/2016.
  */
-public class LRPDaemon
+public class LRPDaemon implements Runnable
 {
     private ARPDaemon arpDaemon;
     private RouteTable routeTable;
@@ -78,7 +79,35 @@ public class LRPDaemon
             routeTable.addOrUpdateEntry(lrp.getSourceAddr(), ndp.getNetwork(), ndp.getDistance() + 1, lrp.getSourceAddr());
         }
 
+        forwardingTable.addRouteList(getRoutingTableAsList());
+
         uiManager.updateForwardingTable();
         uiManager.updateRoutingTable();
+    }
+
+    @Override
+    public void run()
+    {
+        ArrayList<ARPTableEntry> adjacentRouters = new ArrayList<>();
+        adjacentRouters.addAll(arpDaemon.getARPTable().getTableEntries());
+
+        for (ARPTableEntry arp : adjacentRouters)
+        {
+            routeTable.addOrUpdateEntry(Integer.valueOf(NetworkConstants.MY_LL3P_ADDR, 16), arp.getLL3PAddr(), 1, arp.getLL3PAddr());
+        }
+
+        forwardingTable.addRouteList(getRoutingTableAsList());
+
+        uiManager.updateRoutingTable();
+        uiManager.updateForwardingTable();
+
+        for (ARPTableEntry arp : adjacentRouters)
+        {
+            LRP packet = new LRP();
+            packet.setSourceAddr(Integer.valueOf(NetworkConstants.MY_LL3P_ADDR, 16));
+            packet.setPairList(forwardingTable, arp.getLL3PAddr());
+
+            ll2Daemon.sendLL2PFrame(packet.getBytes(), arp.getLL2PAddr(), Integer.valueOf(NetworkConstants.TYPE_LRP));
+        }
     }
 }

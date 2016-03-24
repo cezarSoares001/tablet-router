@@ -32,6 +32,7 @@ public class NetworkConstants {
 
     public static final long ARP_TIMEOUT = 60;
     public static final long ROUTE_TIMEOUT = 60; //this may change...
+    public static final long ROUTER_BOOT_TIME = 10;
 
     //  SOUNDS
 	public static final int badPacketSound = 1;
