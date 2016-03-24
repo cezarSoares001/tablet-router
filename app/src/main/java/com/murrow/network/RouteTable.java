@@ -1,10 +1,12 @@
 package com.murrow.network;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.murrow.support.Factory;
 import com.murrow.support.NetworkConstants;
 import com.murrow.support.UIManager;
+import com.murrow.support.Utilities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,9 +33,29 @@ public class RouteTable
         activity = factory.getParentActivity();
     }
 
-    public void addEntry(Integer srcAddr, Integer network, Integer distance, Integer nextHop)
+    public void addOrUpdateEntry(Integer srcAddr, Integer network, Integer distance, Integer nextHop)
     {
-        table.add(new RouteTableEntry(srcAddr, new NetworkDistancePair(network, distance), nextHop));
+
+        Iterator<RouteTableEntry> it = table.iterator();
+        RouteTableEntry tmp;
+
+        NetworkDistancePair ndp = new NetworkDistancePair(network, distance);
+
+        while (it.hasNext())
+        {
+
+            tmp = it.next();
+            if (tmp.getSourceLL3P().equals(srcAddr) && tmp.getNetworkDistancePair().equals(ndp))
+            {
+                tmp.updateLastTimeTouched();
+                Log.i("Routing Table", "Updated Route Table Entry " + Utilities.padHex(Integer.toHexString(tmp.getSourceLL3P()), NetworkConstants.LL3P_ADDR_LENGTH));
+                return;
+            }
+        }
+
+        table.add(new RouteTableEntry(srcAddr, ndp, nextHop));
+        Log.i("Routing Table", "Added Route Table Entry " + Utilities.padHex(Integer.toHexString(srcAddr), NetworkConstants.LL3P_ADDR_LENGTH));
+
     }
 
     public ArrayList<RouteTableEntry> getRoutes()

@@ -66,7 +66,7 @@ public class UIManager
         context = parentActivity.getBaseContext();
 
         adjacencyList = factory.getLL1Daemon().getAdjacencyList();
-        routeList = factory.getLRPDaemon().getRouteList();
+        routeList = factory.getLRPDaemon().getRoutingTableAsList();
         forwardingList = factory.getLRPDaemon().getForwardingList();
 
         adjacencyListAdapter = new ArrayAdapter<>(parentActivity, android.R.layout.simple_list_item_1, adjacencyList);
@@ -123,7 +123,7 @@ public class UIManager
 
     private void resetRouteListAdapter()
     {
-        routeList = factory.getLRPDaemon().getRouteList();
+        routeList = factory.getLRPDaemon().getRoutingTableAsList();
         routeListAdapter.clear();
         Iterator<RouteTableEntry> it = routeList.iterator();
 
@@ -139,6 +139,16 @@ public class UIManager
 
         while (it.hasNext())
             forwardingListAdapter.add(it.next());
+    }
+
+    public void updateForwardingTable()
+    {
+        resetForwardingListAdapter();
+    }
+
+    public void updateRoutingTable()
+    {
+        resetRouteListAdapter();
     }
 
     private void resetAdjacencyListAdapter()

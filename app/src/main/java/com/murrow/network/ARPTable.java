@@ -144,7 +144,7 @@ public class ARPTable implements Runnable
         while (it.hasNext())
         {
             tmp = it.next();
-            if (tmp.getLL3PAddr().equals(LL3PAddr))
+            if (tmp.getLL3PAddr().equals(LL3PAddr) && tmp.getLL2PAddr().equals(LL2PAddr))
             {
                 tmp.updateTime();
                 Log.i("ARP Table", "Updated ARP Table Entry " + Utilities.padHex(Integer.toHexString(tmp.getLL2PAddr()), NetworkConstants.LL2P_ADDR_LENGTH));
