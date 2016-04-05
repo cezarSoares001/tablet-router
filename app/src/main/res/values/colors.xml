@@ -9,4 +9,7 @@
     <color name="purple">#B5BBEA</color>
     <color name="yellow">#FFFF00</color>
     <color name="darkRed">#FF0000</color>
+    <color name="parchment">#ffff99</color>
+    <color name="black">#000000</color>
+    <color name="orange">#ffcc66</color>
 </resources>

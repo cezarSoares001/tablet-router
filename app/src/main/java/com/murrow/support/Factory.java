@@ -85,6 +85,11 @@ public class Factory
         return lrpDaemon;
     }
 
+    public LL3Daemon getLL3Daemon()
+    {
+        return ll3Daemon;
+    }
+
     private void createObjects()
     {
         uiManager = new UIManager();
