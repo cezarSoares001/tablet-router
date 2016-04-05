@@ -22,7 +22,7 @@ public class RouteTableEntry implements Comparable<RouteTableEntry>
         this.sourceLL3P = sourceLL3P;
         this.ndp = ndp;
         this.nextHop = nextHop;
-        lastTouch = 0;
+        updateLastTimeTouched();
     }
 
     public Integer getSourceLL3P()
@@ -68,7 +68,7 @@ public class RouteTableEntry implements Comparable<RouteTableEntry>
     @Override
     public int compareTo(RouteTableEntry another)
     {
-        if (ndp.equals(another.getNetworkDistancePair()))
+        if (ndp.toString().equals(another.getNetworkDistancePair().toString()))
             return 0;
         else
         {

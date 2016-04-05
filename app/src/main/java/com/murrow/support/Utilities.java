@@ -30,9 +30,16 @@ public class Utilities {
 
     public static String prependString(String str, int len)
     {
-        char[] tmp = new char[len-str.length()];
-        Arrays.fill(tmp, ' ');
-        return new String(tmp) + str;
+        try
+        {
+            char[] tmp = new char[len - str.length()];
+            Arrays.fill(tmp, ' ');
+            return new String(tmp) + str;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return str;
     }
 
     public static Integer getNetworkFromInteger(Integer addr)

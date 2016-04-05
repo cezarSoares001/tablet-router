@@ -40,8 +40,8 @@ public class LRP
 
         for (int i = 0; i < routeCount; i++)
         {
-            Integer net = Integer.valueOf(tmpData.substring(6+i, 7+i), 16);
-            Integer dist = Integer.valueOf(tmpData.substring(7+i, 8+i), 16);
+            Integer net = Integer.valueOf(tmpData.substring(6+4*i, 8+4*i), 16);
+            Integer dist = Integer.valueOf(tmpData.substring(8+4*i, 10+4*i), 16);
             pairList.add(new NetworkDistancePair(net, dist));
         }
     }

@@ -26,6 +26,7 @@ public class LL1Daemon
     private UIManager uiManager;
     private LL2Daemon ll2daemon;
     private AdjacencyTable table;
+
     private DatagramSocket sendSocket;
     private DatagramSocket receiveSocket;
 
@@ -34,7 +35,7 @@ public class LL1Daemon
         table = new AdjacencyTable();
 
         table.addEntry(Integer.valueOf(NetworkConstants.MY_LL2P_ADDR, 16), "127.0.0.1");
-        table.addEntry(Integer.valueOf("010203", 16), "10.30.52.180");
+        table.addEntry(Integer.valueOf("010203", 16), "192.168.1.11");
 
         openUDPPorts();
     }

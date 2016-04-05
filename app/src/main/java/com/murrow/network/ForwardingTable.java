@@ -31,12 +31,22 @@ public class ForwardingTable extends RouteTable
             tmp = it.next();
             NetworkDistancePair tmpNDP = tmp.getNetworkDistancePair();
 
-            if (tmpNDP.getNetwork().equals(rteNDP.getNetwork()) && rteNDP.getDistance() < rteNDP.getDistance())
+            if (tmpNDP.getNetwork().equals(rteNDP.getNetwork()) )
             {
                 found = true;
-                table.remove(tmp);
-                table.add(rte);
+                if (rteNDP.getDistance() < rteNDP.getDistance())
+                {
+                    table.remove(tmp);
+                    table.add(rte);
+                    Log.i("Forwarding Table", "Added " + Integer.toHexString(rte.getSourceLL3P()) + " to forwarding table.");
+                }
             }
+        }
+
+        if (!found)
+        {
+            table.add(rte);
+            Log.i("Forwarding Table", "Added " + Integer.toHexString(rte.getSourceLL3P()) + " to forwarding table.");
         }
     }
 
@@ -82,5 +92,10 @@ public class ForwardingTable extends RouteTable
         }
 
         return list;
+    }
+
+    public void reset()
+    {
+        table.clear();
     }
 }

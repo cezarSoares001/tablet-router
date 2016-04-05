@@ -1,5 +1,7 @@
 package com.murrow.network;
 
+import android.util.Log;
+
 import com.murrow.support.Factory;
 import com.murrow.support.NetworkConstants;
 import com.murrow.support.UIManager;
@@ -14,6 +16,7 @@ public class LL2Daemon
     private LL1Daemon ll1Daemon;
     private UIManager uiManager;
     private ARPDaemon arpDaemon;
+    private LRPDaemon lrpDaemon;
 
     private Integer localLL2PAddr;
 
@@ -27,6 +30,7 @@ public class LL2Daemon
         ll1Daemon = factory.getLL1Daemon();
         uiManager = factory.getUIManager();
         arpDaemon = factory.getARPDaemon();
+        lrpDaemon = factory.getLRPDaemon();
     }
 
     public void setLocalLL2PAddr(Integer addr)
@@ -55,6 +59,8 @@ public class LL2Daemon
 
     public void receiveLL2PFrame(LL2P frame)
     {
+        Log.i("LL2 Daemon:", "Received frame from " + frame.getSrcAddrHexString() + " of type " + frame.getTypeHexString());
+
         if (true) //if isValidFrame(frame)
         {
             if (frame.getDstAddr() == localLL2PAddr)
@@ -63,7 +69,7 @@ public class LL2Daemon
                 {
                     case NetworkConstants.TYPE_LL3P: break;
                     case NetworkConstants.TYPE_ARP: break;
-                    case NetworkConstants.TYPE_LRP: break;
+                    case NetworkConstants.TYPE_LRP: lrpDaemon.receiveNewLRP(frame.getPayloadBytes(), frame.getSrcAddr()); break;
                     case NetworkConstants.TYPE_ECHO_REQUEST: sendEchoReply(frame); break;
                     case NetworkConstants.TYPE_ECHO_REPLY: uiManager.raiseToast("Received echo reply from " + frame.getSrcAddrHexString() + "!"); break;
                     case NetworkConstants.TYPE_ARP_UPDATE: arpDaemon.addOrUpdate(frame.getSrcAddr(), Integer.valueOf(frame.getPayloadString(), 16)); sendARPReply(frame.getSrcAddr()); break;

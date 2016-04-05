@@ -24,17 +24,6 @@ public class LRPDaemon implements Runnable
     {
         routeTable = new RouteTable();
         forwardingTable = new ForwardingTable();
-
-        routeTable.addOrUpdateEntry(0x0C01, 0x0A, 0x01, 0x0A00);
-        routeTable.addOrUpdateEntry(0x0D01, 0x0A, 0x02, 0x0B00);
-        routeTable.addOrUpdateEntry(0x0E01, 0x0A, 0x04, 0x0D00);
-        routeTable.addOrUpdateEntry(0x0B01, 0x0A, 0x05, 0x0E00);
-        routeTable.addOrUpdateEntry(0x0E01, 0x0A, 0x06, 0x0F00);
-        forwardingTable.addOrUpdateEntry(0x0C01, 0x0A, 0x01, 0x0B00);
-        forwardingTable.addOrUpdateEntry(0x0E01, 0x0A, 0x02, 0x0B00);
-        forwardingTable.addOrUpdateEntry(0x0F01, 0x0A, 0x04, 0x0D00);
-        forwardingTable.addOrUpdateEntry(0x0B01, 0x0A, 0x05, 0x0E00);
-        forwardingTable.addOrUpdateEntry(0x0A01, 0x0A, 0x06, 0x0F00);
     }
 
     public RouteTable getRouteTable()
@@ -79,6 +68,7 @@ public class LRPDaemon implements Runnable
             routeTable.addOrUpdateEntry(lrp.getSourceAddr(), ndp.getNetwork(), ndp.getDistance() + 1, lrp.getSourceAddr());
         }
 
+        forwardingTable.reset();
         forwardingTable.addRouteList(getRoutingTableAsList());
 
         uiManager.updateForwardingTable();
@@ -93,9 +83,10 @@ public class LRPDaemon implements Runnable
 
         for (ARPTableEntry arp : adjacentRouters)
         {
-            routeTable.addOrUpdateEntry(Integer.valueOf(NetworkConstants.MY_LL3P_ADDR, 16), arp.getLL3PAddr(), 1, arp.getLL3PAddr());
+            routeTable.addOrUpdateEntry(Integer.valueOf(NetworkConstants.MY_LL3P_ADDR, 16), arp.getNetwork(), 1, arp.getLL3PAddr());
         }
 
+        forwardingTable.reset();
         forwardingTable.addRouteList(getRoutingTableAsList());
 
         uiManager.updateRoutingTable();

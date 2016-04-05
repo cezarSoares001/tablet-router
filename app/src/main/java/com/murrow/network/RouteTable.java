@@ -42,7 +42,6 @@ public class RouteTable implements Runnable
 
         while (it.hasNext())
         {
-
             tmp = it.next();
             if (tmp.getSourceLL3P().equals(srcAddr) && tmp.getNetworkDistancePair().equals(ndp))
             {
@@ -76,6 +75,7 @@ public class RouteTable implements Runnable
             if (tmp.getCurrentAge() > NetworkConstants.ROUTE_TIMEOUT)
             {
                 found = true;
+                Log.i("Routing Table", "Removing " + Integer.toHexString(tmp.getSourceLL3P()) + " from the route table.");
                 table.remove(tmp);
             }
         }

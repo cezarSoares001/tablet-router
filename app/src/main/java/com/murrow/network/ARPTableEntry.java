@@ -1,5 +1,8 @@
 package com.murrow.network;
 
+import com.murrow.support.NetworkConstants;
+import com.murrow.support.Utilities;
+
 import java.util.Calendar;
 
 /**
@@ -38,6 +41,12 @@ public class ARPTableEntry implements Comparable<ARPTableEntry>
     public Integer getLL3PAddr()
     {
         return LL3PAddr;
+    }
+
+    public Integer getNetwork()
+    {
+        String addr = Utilities.padHex(Integer.toHexString(LL3PAddr), NetworkConstants.LL3P_ADDR_LENGTH);
+        return Integer.valueOf(addr.substring(0,2), 16);
     }
 
     @Override
