@@ -261,7 +261,7 @@
         android:minWidth="300dp"
         android:layout_marginLeft="5dp"
         android:columnCount="1"
-        >
+        android:id="@+id/tableLayout">
 
         <TableRow
             android:layout_width="match_parent"
@@ -298,4 +298,180 @@
                 android:layout_weight="1"/>
         </TableRow>
     </TableLayout>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow"
+        android:minWidth="300dp"
+        android:padding="2dp"
+        android:id="@+id/glLL3PDisplay"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tableLayout"
+        android:layout_marginLeft="5dp"
+        >
+
+
+        <TextView
+            android:text="LL3P DST"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:padding="5dp"
+            android:layout_gravity="left"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/lblLL3PdstAddrVal"
+            android:text="@string/unknown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:textColor="@color/darkRed"
+            />
+
+        <TextView
+            android:text="LL3P SRC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:textStyle="bold"
+            android:layout_gravity="left"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/lblLL3PsrcAddrVal"
+            android:text="@string/unknown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_gravity="center"
+            android:textColor="@color/darkRed"/>
+
+        <TextView
+            android:text="LL3P Type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:padding="5dp"
+            android:layout_gravity="left"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/lblLL3PtypeVal"
+            android:text="@string/unknown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:textColor="@color/darkRed"
+            />
+
+        <TextView
+            android:text="LL3P ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:padding="5dp"
+            android:layout_gravity="left"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/lblLL3PIDVal"
+            android:text="@string/unknown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:textColor="@color/darkRed"
+            />
+
+        <TextView
+            android:text="LL3P TTL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:layout_gravity="left"
+            android:textStyle="bold"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/lblLL3PttlVal"
+            android:text="@string/unknown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:textColor="@color/darkRed"/>
+
+        <TextView
+            android:text="LL3P CHK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:layout_gravity="left"
+            android:textStyle="bold"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/lblLL3PchkVal"
+            android:text="@string/unknown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="5"
+            android:layout_column="1"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:textColor="@color/darkRed"/>
+
+        <TextView
+            android:text="---------------  LL3P Payload  ---------------"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:layout_columnSpan="4"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblLL3PpayloadVal"
+            android:text="@string/unknown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="7"
+            android:layout_column="0"
+            android:layout_columnSpan="4"
+            android:padding="5dp"
+            android:textColor="@color/darkRed"/>
+
+    </GridLayout>
 </RelativeLayout>

@@ -28,7 +28,7 @@ public class NetworkConstants {
     public static final int LL2P_ADDR_LENGTH = 6;
     public static final int LL3P_ADDR_LENGTH = 4;
     public static final int CRC_LENGTH = 4;
-    public static final int LL2P_TYPE_LENGTH = 4;
+    public static final int TYPE_LENGTH = 4;
 
     public static final long ARP_TIMEOUT = 60;
     public static final long ROUTE_TIMEOUT = 60; //this may change...

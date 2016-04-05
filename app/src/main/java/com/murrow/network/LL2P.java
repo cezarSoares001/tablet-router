@@ -135,7 +135,7 @@ public class LL2P
 
     public String getTypeHexString()
     {
-        return Utilities.padHex(Integer.toHexString(type), NetworkConstants.LL2P_TYPE_LENGTH);
+        return Utilities.padHex(Integer.toHexString(type), NetworkConstants.TYPE_LENGTH);
     }
 
     public String getCRCHexString()

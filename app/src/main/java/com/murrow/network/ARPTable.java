@@ -156,6 +156,21 @@ public class ARPTable implements Runnable
         Log.i("ARP Table", "Added ARP Table Entry " + Utilities.padHex(Integer.toHexString(LL2PAddr), NetworkConstants.LL2P_ADDR_LENGTH));
     }
 
+    public void touch(Integer LL3PAddr)
+    {
+        Iterator<ARPTableEntry> it = table.iterator();
+        ARPTableEntry tmp;
+
+        while (it.hasNext())
+        {
+            tmp = it.next();
+            if (tmp.getLL3PAddr().equals(LL3PAddr))
+            {
+                tmp.updateTime();
+            }
+        }
+    }
+
     @Override
     public void run()
     {

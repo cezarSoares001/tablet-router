@@ -20,6 +20,11 @@ public class ARPDaemon
         table.addOrUpdate(LL2PAddr, LL3PAddr);
     }
 
+    public void touchARPEntry(Integer LL3PAddress)
+    {
+        table.touch(LL3PAddress);
+    }
+
     public ARPTable getARPTable()
     {
         return table;

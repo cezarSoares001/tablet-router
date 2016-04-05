@@ -7,6 +7,7 @@ import com.murrow.network.ARPDaemon;
 import com.murrow.network.LL1Daemon;
 import com.murrow.network.LL2Daemon;
 import com.murrow.network.LL2P;
+import com.murrow.network.LL3Daemon;
 import com.murrow.network.LRPDaemon;
 import com.murrow.network.RouteTable;
 import com.murrow.network.Scheduler;
@@ -29,6 +30,7 @@ public class Factory
     private ARPDaemon arpDaemon;
     private Scheduler scheduler;
     private LRPDaemon lrpDaemon;
+    private LL3Daemon ll3Daemon;
 
     public Factory(Activity callingActivity)
     {
@@ -94,6 +96,7 @@ public class Factory
         arpDaemon = new ARPDaemon();
         scheduler = new Scheduler();
         lrpDaemon = new LRPDaemon();
+        ll3Daemon = new LL3Daemon();
     }
 
     private void getObjectReferences()
@@ -102,6 +105,7 @@ public class Factory
         frame.getObjectReferences(this);
         ll1Daemon.getObjectReferences(this);
         ll2Daemon.getObjectReferences(this);
+        ll3Daemon.getObjectReferences(this);
         arpDaemon.getObjectReferences(this);
         scheduler.getObjectReferences(this);
         lrpDaemon.getObjectReferences(this);

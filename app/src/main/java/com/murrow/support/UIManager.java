@@ -2,6 +2,7 @@ package com.murrow.support;
 
 import com.murrow.network.AdjacencyTableEntry;
 import com.murrow.network.LL2P;
+import com.murrow.network.LL3P;
 import com.murrow.network.RouteTableEntry;
 import com.murrow.tabletrouter.R;
 import android.app.Activity;
@@ -54,6 +55,14 @@ public class UIManager
     private List<RouteTableEntry> forwardingList;
     private ArrayAdapter<RouteTableEntry> forwardingListAdapter;
 
+    private TextView lblLL3PdstAddrVal;
+    private TextView lblLL3PsrcAddrVal;
+    private TextView lblLL3PtypeVal;
+    private TextView lblLL3PTTLVal;
+    private TextView lblLL3PIdentifierVal;
+    private TextView lblLL3PchecksumVal;
+    private TextView lblLL3PpayloadVal;
+
     public UIManager()
     {
 
@@ -90,6 +99,17 @@ public class UIManager
         lblLL2PpayloadVal.setText(frame.getPayloadString());
     }
 
+    public void updateLL3PDisplay(LL3P packet)
+    {
+        lblLL3PdstAddrVal.setText(packet.getDstAddrHex());
+        lblLL3PsrcAddrVal.setText(packet.getSrcAddrHex());
+        lblLL3PtypeVal.setText(packet.getTypeHex());
+        lblLL3PTTLVal.setText(packet.getTTLHex());
+        lblLL3PchecksumVal.setText(packet.getChecksumHex());
+        lblLL3PIdentifierVal.setText(packet.getIdentifierHex());
+        lblLL3PpayloadVal.setText(packet.getPayloadString());
+    }
+
     private void setupMainScreen()
     {
         lblLL2PdstAddrVal = (TextView) parentActivity.findViewById(R.id.lblLL2PdstAddrVal);
@@ -119,6 +139,14 @@ public class UIManager
 
         lvRouteTable.setAdapter(routeListAdapter);
         lvForwardingTable.setAdapter(forwardingListAdapter);
+
+        lblLL3PsrcAddrVal = (TextView) parentActivity.findViewById(R.id.lblLL3PsrcAddrVal);
+        lblLL3PdstAddrVal = (TextView) parentActivity.findViewById(R.id.lblLL3PdstAddrVal);
+        lblLL3PchecksumVal = (TextView) parentActivity.findViewById(R.id.lblLL3PchkVal);
+        lblLL3PIdentifierVal = (TextView) parentActivity.findViewById(R.id.lblLL3PIDVal);
+        lblLL3PTTLVal = (TextView) parentActivity.findViewById(R.id.lblLL3PttlVal);
+        lblLL3PtypeVal = (TextView) parentActivity.findViewById(R.id.lblLL3PtypeVal);
+        lblLL3PpayloadVal = (TextView) parentActivity.findViewById(R.id.lblLL3PpayloadVal);
     }
 
     private void resetRouteListAdapter()
