@@ -209,6 +209,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/etLL2PAddr"
+                android:text="c0ffee"
                 android:hint="FFFFFF"
                 android:layout_weight="1"
                 android:layout_marginRight="5dp"/>
@@ -231,6 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/etIPPAddr"
+                android:text="192.168.1.6"
                 android:hint="255.255.255.255"
                 android:layout_weight="1"
                 android:layout_marginRight="5dp"/>

@@ -22,7 +22,7 @@ public class LL3P
         setSrcAddr(NetworkConstants.MY_LL3P_ADDR);
         setDstAddr("0");
         setType(NetworkConstants.TYPE_LL3P);
-        setTTL("255");
+        setTTL("FF");
         setIdentifier("0");
 
         payload = Utilities.stringToBytes("0");
@@ -46,15 +46,15 @@ public class LL3P
     {
         String tmpData = Utilities.bytesToString(data);
 
-        setDstAddr(tmpData.substring(0, 4));
-        setSrcAddr(tmpData.substring(4, 8));
+        setSrcAddr(tmpData.substring(0, 4));
+        setDstAddr(tmpData.substring(4, 8));
         setType(tmpData.substring(8, 12));
         setIdentifier(tmpData.substring(12, 16));
-        setTTL(tmpData.substring(16, 17));
+        setTTL(tmpData.substring(16, 18));
 
         setChecksum(tmpData.substring(tmpData.length() - 4, tmpData.length()));
 
-        setPayload(Utilities.stringToBytes(tmpData.substring(17, tmpData.length() - 4)));
+        setPayload(tmpData.substring(18, tmpData.length() - 4).getBytes());
     }
 
     public Integer getSrcAddr()
@@ -159,12 +159,14 @@ public class LL3P
 
     public String getPayloadString()
     {
-        return Utilities.bytesToString(payload);
+        return new String(payload);
+        //return Utilities.bytesToString(payload);
     }
 
     public byte[] getPacketBytes()
     {
-        return Utilities.stringToBytes(toString());
+        return toString().getBytes();
+        //return Utilities.stringToBytes(toString());
     }
 
     public void decrementTTL()
@@ -174,12 +176,12 @@ public class LL3P
 
     private void calculateChecksum()
     {
-
+        checksum = 0;
     }
 
     @Override
     public String toString()
     {
-        return getSrcAddrHex() + getDstAddrHex() + getTypeHex() + getIdentifierHex() + getTTLHex() + getPayloadString();
+        return getSrcAddrHex() + getDstAddrHex() + getTypeHex() + getIdentifierHex() + getTTLHex() + getPayloadString() + getChecksumHex();
     }
 }

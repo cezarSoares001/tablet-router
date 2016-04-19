@@ -75,6 +75,7 @@ public class ForwardingTable extends RouteTable
             }
         }
 
+        Log.e("Forwarding Table", "No Forwarding Table entry for " + Integer.toHexString(LL3PAddr));
         return null;
     }
 
@@ -83,15 +84,17 @@ public class ForwardingTable extends RouteTable
         ArrayList<RouteTableEntry> list = new ArrayList<>();
         list.addAll(table);
 
+        ArrayList<RouteTableEntry> tmp = new ArrayList<>();
+
         Integer network = Utilities.getNetworkFromInteger(LL3PAddr);
 
         for(RouteTableEntry rte : list)
         {
-            if (rte.getNetworkDistancePair().getNetwork().equals(network))
-                list.remove(rte);
+            if (!Utilities.getNetworkFromInteger(rte.getSourceLL3P()).equals(network))
+                tmp.add(rte);
         }
 
-        return list;
+        return tmp;
     }
 
     public void reset()

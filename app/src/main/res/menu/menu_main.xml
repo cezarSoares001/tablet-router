@@ -14,4 +14,9 @@
         android:title="Send Test Frame"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/optOpenMessenger"
+        android:title="Open Messenger"
+        app:showAsAction="never" />
+
 </menu>

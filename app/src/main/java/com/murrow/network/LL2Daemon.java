@@ -17,6 +17,7 @@ public class LL2Daemon
     private UIManager uiManager;
     private ARPDaemon arpDaemon;
     private LRPDaemon lrpDaemon;
+    private LL3Daemon ll3Daemon;
 
     private Integer localLL2PAddr;
 
@@ -31,6 +32,7 @@ public class LL2Daemon
         uiManager = factory.getUIManager();
         arpDaemon = factory.getARPDaemon();
         lrpDaemon = factory.getLRPDaemon();
+        ll3Daemon = factory.getLL3Daemon();
     }
 
     public void setLocalLL2PAddr(Integer addr)
@@ -45,8 +47,12 @@ public class LL2Daemon
 
     public void sendLL2PFrame(byte[] payload, Integer dstAddr, Integer type)
     {
-        LL2P frame = new LL2P(Integer.toHexString(dstAddr), Integer.toHexString(localLL2PAddr), Integer.toHexString(type), Utilities.bytesToString(payload));
-        sendLL2PFrame(frame);
+        try
+        {
+            LL2P frame = new LL2P(Integer.toHexString(dstAddr), Integer.toHexString(localLL2PAddr), Integer.toHexString(type), new String(payload));
+            Log.i("LL2 Daemon", frame.toString());
+            sendLL2PFrame(frame);
+        } catch (Exception e) {}
     }
 
     public void sendLL2PEchoRequest(Integer dstAddr, String payload)
@@ -67,12 +73,12 @@ public class LL2Daemon
             {
                 switch (frame.getTypeHexString())
                 {
-                    case NetworkConstants.TYPE_LL3P: break;
+                    case NetworkConstants.TYPE_LL3P: ll3Daemon.receiveLL3PPacket(frame.getPayloadBytes());break;
                     case NetworkConstants.TYPE_ARP: break;
                     case NetworkConstants.TYPE_LRP: lrpDaemon.receiveNewLRP(frame.getPayloadBytes(), frame.getSrcAddr()); break;
                     case NetworkConstants.TYPE_ECHO_REQUEST: sendEchoReply(frame); break;
                     case NetworkConstants.TYPE_ECHO_REPLY: uiManager.raiseToast("Received echo reply from " + frame.getSrcAddrHexString() + "!"); break;
-                    case NetworkConstants.TYPE_ARP_UPDATE: arpDaemon.addOrUpdate(frame.getSrcAddr(), Integer.valueOf(frame.getPayloadString(), 16)); sendARPReply(frame.getSrcAddr()); break;
+                    case NetworkConstants.TYPE_ARP_UPDATE: Log.i("LL2 Daemon", "Received ARP request from " + frame.getSrcAddrHexString()); arpDaemon.addOrUpdate(frame.getSrcAddr(), Integer.valueOf(frame.getPayloadString(), 16)); sendARPReply(frame.getSrcAddr()); break;
                     case NetworkConstants.TYPE_ARP_REPLY: uiManager.raiseToast("Received ARP reply from " + frame.getSrcAddrHexString() + "!"); break;
                     default: uiManager.raiseToast("Frame typed incorrectly: " + frame.getTypeHexString()); break;
                 }

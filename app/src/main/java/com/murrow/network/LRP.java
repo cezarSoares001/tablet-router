@@ -20,12 +20,18 @@ public class LRP
     public LRP()
     {
         pairList = new ArrayList<>();
+        sequenceNum = 0;
+        routeCount = 0;
+        lrpCounter = 0;
     }
 
     public LRP(Integer srcLL3P, ForwardingTable table, Integer dstLL3P)
     {
         setPairList(table, srcLL3P); //or should this be dstLL3P?
         sourceAddr = srcLL3P;
+        sequenceNum = 0;
+        routeCount = 0;
+        lrpCounter = 0;
     }
 
     public LRP(byte[] data)
@@ -48,7 +54,7 @@ public class LRP
 
     public byte[] getBytes()
     {
-        return Utilities.stringToBytes(toString());
+        return toString().getBytes();
     }
 
     public Integer getRouteCount()
@@ -90,6 +96,7 @@ public class LRP
         for(RouteTableEntry rte : list)
         {
             pairList.add(rte.getNetworkDistancePair());
+            routeCount++;
         }
     }
 

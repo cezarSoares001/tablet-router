@@ -38,12 +38,13 @@ public class ARPTable implements Runnable
         while (it.hasNext())
         {
             tmp = it.next();
-            if (tmp.getLL2PAddr().equals(LL3PAddr))
+            if (tmp.getLL3PAddr().equals(LL3PAddr))
             {
-                return tmp.getLL3PAddr();
+                return tmp.getLL2PAddr();
             }
         }
 
+        Log.e("ARP Table", "No ARP Entry for " + Integer.toHexString(LL3PAddr));
         return null;
     }
 

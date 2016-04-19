@@ -18,9 +18,10 @@ import java.util.TreeSet;
  */
 public class RouteTable implements Runnable
 {
-    UIManager uiManager;
-    Activity activity;
-    TreeSet<RouteTableEntry> table;
+    private UIManager uiManager;
+    private Activity activity;
+    protected TreeSet<RouteTableEntry> table;
+    private LRPDaemon lrpDaemon;
 
     public RouteTable()
     {
@@ -31,6 +32,7 @@ public class RouteTable implements Runnable
     {
         uiManager = factory.getUIManager();
         activity = factory.getParentActivity();
+        lrpDaemon = factory.getLRPDaemon();
     }
 
     public void addOrUpdateEntry(Integer srcAddr, Integer network, Integer distance, Integer nextHop)
@@ -108,12 +110,15 @@ public class RouteTable implements Runnable
     public void run()
     {
         this.removeOldRoutes();
+        lrpDaemon.getForwardingTable().reset();
+        lrpDaemon.getForwardingTable().addRouteList(getRoutes());
 
         activity.runOnUiThread(new Runnable()
         {
             public void run()
             {
                 uiManager.updateRoutingTable();
+                uiManager.updateForwardingTable();
             }
         });
     }

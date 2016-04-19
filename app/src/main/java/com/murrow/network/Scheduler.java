@@ -32,8 +32,8 @@ public class Scheduler
 
     private void beginScheduledTasks()
     {
-        pool.scheduleAtFixedRate(arpTable, 10, 80, TimeUnit.SECONDS);
+        pool.scheduleAtFixedRate(arpTable, NetworkConstants.ROUTER_BOOT_TIME, 80, TimeUnit.SECONDS);
         pool.scheduleAtFixedRate(routes, NetworkConstants.ROUTER_BOOT_TIME, NetworkConstants.ROUTE_TIMEOUT, TimeUnit.SECONDS);
-        pool.scheduleAtFixedRate(lrpDaemon, NetworkConstants.ROUTER_BOOT_TIME, NetworkConstants.ROUTE_TIMEOUT, TimeUnit.SECONDS);
+        pool.scheduleAtFixedRate(lrpDaemon, NetworkConstants.ROUTER_BOOT_TIME, 20, TimeUnit.SECONDS);
     }
 }

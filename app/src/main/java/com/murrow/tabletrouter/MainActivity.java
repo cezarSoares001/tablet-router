@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.optShowIPAddr: uiManager.raiseToast(NetworkConstants.IP_ADDRESS); break;
             case R.id.optSendLL2PFrame: factory.getLL1Daemon().sendLL2PFrame(); break;
+            case R.id.optOpenMessenger: uiManager.openMessengerWindow(); break;
 
             default: break;
         }

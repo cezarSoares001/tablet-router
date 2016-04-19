@@ -29,6 +29,8 @@ public class UIManager
     private Context context;
     private Factory factory;
 
+    private Messenger messenger;
+
     //private LL2P frame; - necessary? Step 3 in "Modify App's Display" but not seeing it's use
     private TextView lblLL2PdstAddrVal;
     private TextView lblLL2PsrcAddrVal;
@@ -83,6 +85,9 @@ public class UIManager
         forwardingListAdapter = new ArrayAdapter<>(parentActivity, android.R.layout.simple_list_item_1, forwardingList);
 
         setupMainScreen();
+
+        messenger = new Messenger(parentActivity);
+        messenger.getObjectReferences(factory);
     }
 
     public void raiseToast(String value)
@@ -108,6 +113,16 @@ public class UIManager
         lblLL3PchecksumVal.setText(packet.getChecksumHex());
         lblLL3PIdentifierVal.setText(packet.getIdentifierHex());
         lblLL3PpayloadVal.setText(packet.getPayloadString());
+    }
+
+    public void openMessengerWindow()
+    {
+        messenger.openMessengerWindow();
+    }
+
+    public void receiveMessage(Integer address, String text)
+    {
+        messenger.receiveMessage(address, text);
     }
 
     private void setupMainScreen()

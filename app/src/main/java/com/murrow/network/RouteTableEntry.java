@@ -68,15 +68,14 @@ public class RouteTableEntry implements Comparable<RouteTableEntry>
     @Override
     public int compareTo(RouteTableEntry another)
     {
-        if (ndp.toString().equals(another.getNetworkDistancePair().toString()))
-            return 0;
-        else
+        if (ndp.getNetwork().equals(another.getNetworkDistancePair().getNetwork()))
         {
-            if (ndp.getDistance() > another.getNetworkDistancePair().getDistance())
-                return 1;
+            if (ndp.getDistance().equals(another.getNetworkDistancePair().getDistance()))
+                return Utilities.getNetworkFromInteger(sourceLL3P).compareTo(Utilities.getNetworkFromInteger(another.getSourceLL3P()));
             else
-                return -1;
-        }
+                return ndp.getDistance().compareTo(another.getNetworkDistancePair().getDistance());
+        } else
+            return ndp.getNetwork().compareTo(another.getNetworkDistancePair().getNetwork());
     }
 
     @Override

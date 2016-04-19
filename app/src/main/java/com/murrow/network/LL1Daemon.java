@@ -35,7 +35,7 @@ public class LL1Daemon
         table = new AdjacencyTable();
 
         table.addEntry(Integer.valueOf(NetworkConstants.MY_LL2P_ADDR, 16), "127.0.0.1");
-        table.addEntry(Integer.valueOf("010203", 16), "192.168.1.11");
+        table.addEntry(Integer.valueOf("010203", 16), "192.168.1.4");
 
         openUDPPorts();
     }
@@ -84,6 +84,7 @@ public class LL1Daemon
         if (IPAddr != null)
         {
             DatagramPacket packet = new DatagramPacket(frame.getFrameBytes(), frame.getFrameBytes().length, IPAddr, port);
+            Log.i("LL1 Daemon", frame.toString());
             new SendUDPPacket().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, sendSocket, packet);
         } else
             uiManager.raiseToast("Couldn't send frame: " + frame.getDstAddrHexString() + " is not adjacent.");

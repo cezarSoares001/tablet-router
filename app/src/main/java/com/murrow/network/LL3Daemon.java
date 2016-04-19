@@ -31,28 +31,33 @@ public class LL3Daemon
     {
         LL3P packet = new LL3P(data);
 
-        if (packet.getTTL() == 255)
+        if (packet.getTTL() == 255) //is adjacent
         {
             arpDaemon.touchARPEntry(packet.getSrcAddr());
         }
 
-        if (packet.getDstAddrHex().equals(NetworkConstants.MY_LL3P_ADDR))
+        if (packet.getDstAddrHex().equalsIgnoreCase(NetworkConstants.MY_LL3P_ADDR))
         {
             //process it
             uiManager.updateLL3PDisplay(packet);
+            uiManager.receiveMessage(packet.getSrcAddr(), packet.getPayloadString());
         } else
         {
             //forward it
-            uiManager.raiseToast("Received LL3P Packet for " + packet.getDstAddrHex() + ". Forwarding it on.");
+            uiManager.raiseToast("Received LL3P Packet for " + packet.getDstAddrHex() + ". Forwarding it on (if possible).");
+
+            packet.decrementTTL();
+
+            try
+            {
+                ll2Daemon.sendLL2PFrame(packet.getPacketBytes(), arpDaemon.getARPTable().getLL2PAddr(forwardingTable.getNextHop(packet.getDstAddr())), Integer.valueOf(NetworkConstants.TYPE_LL3P, 16));
+            } catch (Exception e) {}
         }
     }
 
     public void sendLL3PPacket(LL3P packet)
     {
-        if (!packet.getSrcAddrHex().equals(NetworkConstants.MY_LL3P_ADDR))
-            packet.decrementTTL();
-
-        ll2Daemon.sendLL2PFrame(packet.getPacketBytes(), arpDaemon.getARPTable().getLL2PAddr(packet.getDstAddr()), Integer.valueOf(NetworkConstants.TYPE_LL3P, 16));
+        ll2Daemon.sendLL2PFrame(packet.getPacketBytes(), arpDaemon.getARPTable().getLL2PAddr(forwardingTable.getNextHop(packet.getDstAddr())), Integer.valueOf(NetworkConstants.TYPE_LL3P, 16));
     }
 
     public void sendPayloadToLL3PDestination(Integer dstAddr, byte[] payload)

@@ -1,6 +1,7 @@
 package com.murrow.network;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.murrow.support.Factory;
 import com.murrow.support.NetworkConstants;
@@ -19,6 +20,7 @@ public class LRPDaemon implements Runnable
     private UIManager uiManager;
     private Activity parentActivity;
     private LL2Daemon ll2Daemon;
+    private Activity activity;
 
     public LRPDaemon()
     {
@@ -52,6 +54,7 @@ public class LRPDaemon implements Runnable
         uiManager = factory.getUIManager();
         parentActivity = factory.getParentActivity();
         ll2Daemon = factory.getLL2Daemon();
+        activity = factory.getParentActivity();
 
         routeTable.getObjectReferences(factory);
         forwardingTable.getObjectReferences(factory);
@@ -78,6 +81,7 @@ public class LRPDaemon implements Runnable
     @Override
     public void run()
     {
+        Log.i("LRP Daemon", "Begin Scheduled LRP Runnable");
         ArrayList<ARPTableEntry> adjacentRouters = new ArrayList<>();
         adjacentRouters.addAll(arpDaemon.getARPTable().getTableEntries());
 
@@ -89,8 +93,14 @@ public class LRPDaemon implements Runnable
         forwardingTable.reset();
         forwardingTable.addRouteList(getRoutingTableAsList());
 
-        uiManager.updateRoutingTable();
-        uiManager.updateForwardingTable();
+        activity.runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                uiManager.updateRoutingTable();
+                uiManager.updateForwardingTable();
+            }
+        });
 
         for (ARPTableEntry arp : adjacentRouters)
         {
@@ -98,7 +108,12 @@ public class LRPDaemon implements Runnable
             packet.setSourceAddr(Integer.valueOf(NetworkConstants.MY_LL3P_ADDR, 16));
             packet.setPairList(forwardingTable, arp.getLL3PAddr());
 
-            ll2Daemon.sendLL2PFrame(packet.getBytes(), arp.getLL2PAddr(), Integer.valueOf(NetworkConstants.TYPE_LRP));
+            if (packet.getRouteCount() > 0)
+            {
+                ll2Daemon.sendLL2PFrame(packet.getBytes(), arp.getLL2PAddr(), Integer.valueOf(NetworkConstants.TYPE_LRP, 16));
+                Log.i("LRP Daemon", "Sending LRP info to " + Integer.toHexString(arp.getLL2PAddr()));
+            }
         }
+        Log.i("LRP Daemon", "End of Scheduled LRP Runnable");
     }
 }
